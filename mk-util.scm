@@ -35,4 +35,26 @@
     ((_ n n* ... lbd ubd)
      (withino n* ... lbd ubd : ((<=o n ubd) (<=o lbd n))))))
 
+;;builds a list of Oleg numbers from lbd to ubd
+(define (range lbd ubd)
+  (cond
+    ((> lbd ubd) '())
+    (else (cons (build-num lbd) (range (add1 lbd) ubd)))))
 
+;;similar to withino, this constrains a number appear within
+;;a finite domain bounded by the provided list.
+(define domain
+  (lambda (x y*)
+    (fresh (a d)
+      (== `(,a . ,d) y*)
+      (conde
+        ((== x a))
+        ((domain x d))))))
+
+(define xoro
+  (lambda (x y r)
+    (conde
+      ((== x '()) (== y '()) (== r '()))
+      ((== x '()) (== y '(1)) (== r '(1)))
+      ((== x '(1)) (== y '()) (== r '(1)))
+      ((== x '(1)) (== y '(1)) (== r '())))))
