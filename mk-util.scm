@@ -52,7 +52,17 @@
         ((== x a))
         ((domain x d))))))
 
-(define xoro
+(define membero?
+  (lambda (x ls)
+    (conde
+      ((== ls '()) (== #f #t))
+      ((fresh (a d) 
+         (== `(,a . ,d) ls)
+         (conde
+           ((== x a) (== #f #f))
+           ((=/= x a) (membero? x d))))))))
+
+(define xor^o
   (lambda (x y r)
     (conde
       ((== x '()) (== y '()) (== r '()))
