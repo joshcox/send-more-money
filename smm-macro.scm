@@ -1,30 +1,10 @@
-(load "mk-util.ss")
-;;  S E N D
-;;+ M O R E
-;;_________
-;;M O N E Y
+(load "mk-util.scm")
 
-(define add/carryo
+(define add/carryo2
   (lambda (n1 n2 cin cout o)
     (fresh (sum)
       (pluso* n1 n2 cin sum)
       (/o sum (build-num 10) cout o))))
-
-;;takes 30-ish minutes. See below for details
-(define smm
-  (lambda (q)
-    (fresh (s e n d m o r y)
-      (fresh (c1 c2 c3)
-        (== q `(,s ,e ,n ,d ,m ,o ,r ,y))
-        (=/=* s e n d m o r y)
-        (withino c1 c2 c3     '()  '(1))
-        (withino s m          '(1) '(1 0 0 1))
-        (withino e n d o r y  '()  '(1 0 0 1))
-        (add/carryo d e '() c1 y)
-        (add/carryo n r c1 c2 e)
-        (add/carryo e o c2 c3 n)
-        (add/carryo s m c3 m o)))))
-
 
 (define (rem-dup x* pred?)
   (cond
@@ -65,21 +45,6 @@
          : (l1 l2 l3 l3^) (c) ((withino l1 l2 l3 '(1) '(1 0 0 1))) (l3^) 
            ((add/carryo l1 l2 c l3 l3^)))))))
 
-
-;> (time (run 1 (g) (smm g)))
-;(time (run 1 ...))
-;    30634 collections
-;    1461088 ms elapsed cpu time, including 11151 ms collecting
-;    1461061 ms elapsed real time, including 11199 ms collecting
-;    258019576544 bytes allocated, including 258015377456 bytes reclaimed
-;(((1 0 0 1) (1 0 1) (0 1 1) (1 1 1) (1) () (0 0 0 1) (0 1)));
-;
-;Solution (in 1461 seconds):
-;    9 5 6 7
-;  + 1 0 8 5
-;  1 0 6 5 2
-;
-;
 ;NEW MACRO ROAR!
 ;> (define chc (word-play (c a n) (h a z) (c a s h)))
 ;> (run 1 (q) (chc q))

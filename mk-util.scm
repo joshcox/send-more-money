@@ -1,6 +1,7 @@
 ;;some nice utilities for miniKanren
 
-(load "mk.ss")
+(load "mk.scm")
+(load "numbers.scm")
 
 ;;aps macro for pipelining a series of pluso operations
 ;;to a single variable
